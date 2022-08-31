@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+      <!-- Google Icon -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+          rel="stylesheet">
+
+    <title>Project</title>
+  </head>
+  <body>
+
+
+  <div style="display:none" id="first_seconds">{{ first_seconds }}</div>
+  <div style="display:none" id="second_seconds">{{ second_seconds }}</div>
+  <div style="display:none" id="third_seconds">{{ third_seconds }}</div>
+  <div style="display:none" id="now_seconds">{{ now_seconds }}</div>
+  <div style="display: flex">
+      <div style="width: 140px;  margin-top:5px">
+          <span onclick="return confirm('정말 로그아웃 하시겠습니까?')" style=" font-size:50px" class="material-icons-outlined"><a href="/user/logout" style="text-decoration: none; color:black">logout</a></span>
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between; width:100%; margin-top: 40px ">
+          <div style="letter-spacing: 5px">
+              <div style="width: 280px; margin-top:15px; " class="js-clock">
+                  <h1 class="js-time"></h1>
+              </div>
+          </div>
+
+          <div style="height: 100px; width:280px; display: block; justify-content: center;">
+              <div style=" font-family: cursive; font-size: 65px; text-align: center">D . H . C</div>
+              <div style="display: flex; font-size:20px; letter-spacing: 6px; font-family: serif; justify-content: center;">
+                  daily health care
+              </div>
+          </div>
+      <div style=" display:flex; flex-direction: row-reverse;width:280px" >
+          <span class="material-icons-outlined"
+                style="font-size: 70px; height: 100px; margin-top:15px;  cursor: pointer "><a href="/add" style="text-decoration: none; color:red">more_time</a></span>
+      </div>
+  </div>
+      <div style="width:140px"></div>
+  </div>
+
+  <div style="display: flex; flex-direction: row; width:100%; justify-content: center; margin-top: 50px ">
+      <div style="display: flex; flex-direction: row; justify-content: space-between; width: 1200px">
+          <!-- 시간1번칸 시작-->
+          {% if firstcompare == 'show' %}
+              {% for set in first_set %}
+                  <div style="width: 370px; height: 500px;border: 2px solid black; background: #FAFAFA; border-radius:10px">
+                      <div style="display:block ;width: 368px; height: 50px; border-bottom: 2px solid black">
+                          <div style="display: block">
+                              <div>
+                                  <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                                      {{ set.time_name }}
+                                  </div>
+                                  <div id="f_time" style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                                      {{ set.time }}
+                                  </div>
+                              </div>
+                              {% if set.first_medicine %}
+                                  <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                      <div style="margin-left: 10px">{{ set.first_medicine }}</div>
+                                  </div>
+                              {% else %}
+                              {% endif %}
+                              {% if set.second_medicine %}
+                                  <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                      <div style="margin-left: 10px">{{ set.second_medicine }}</div>
+                                  </div>
+                              {% else %}
+                              {% endif %}
+                              <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                  <div style="margin-left: 10px">{{ set.third_medicine }}</div>
+                              </div>
+
+                          </div>
+
+                      </div>
+                      <div style="margin-top: 350px; display: flex; justify-content: center">
+                          <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+                      </div>
+                  </div>
+              {% endfor %}
+          {% else %}
+              {% for set in first_set %}
+                  <div style="width: 370px; height: 500px;border: 2px solid lightgray; background: #FAFAFA; border-radius:10px">
+                      <div style="display:block ;width: 366px; height: 50px; border-bottom: 2px solid lightgray">
+                          <div style="display: block">
+                              <div>
+                                  <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                                      {{ set.time_name }}
+                                  </div>
+                                  <div id="f_time" style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                                      {{ set.time }}
+                                  </div>
+                              </div>
+                              {% if set.first_medicine %}
+                                  <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                      <div style="margin-left: 10px; color:darkgray">{{ set.first_medicine }}</div>
+                                  </div>
+                              {% else %}
+                              {% endif %}
+                              {% if set.second_medicine %}
+                                  <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                      <div style="margin-left: 10px; color:darkgray">{{ set.second_medicine }}</div>
+                                  </div>
+                              {% else %}
+                              {% endif %}
+                              <div style="display: flex; flex-direction: row; padding :15px 0; font-size:20px; width:368px; ">
+                                  <div style="margin-left: 10px; color:darkgray">{{ set.third_medicine }}</div>
+                              </div>
+
+                          </div>
+
+                      </div>
+                      <div style="margin-top: 350px; display: flex; justify-content: center">
+                          <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+                      </div>
+                  </div>
+              {% endfor %}
+          {% endif %}
+          <!-- 시간1번칸 끝-->
+          <!-- 시간2번칸 시작-->
+      {% if secondcompare == 'show' %}
+          {% for set in second_set %}
+              <div style="width: 370px; height: 500px;border: 2px solid black; background: #FAFAFA; border-radius:10px">
+                  <div style="display:block ;width: 366px; height: 50px; border-bottom: 2px solid black">
+                      <div style="display: block">
+                          <div>
+                              <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                                  {{ set.time_name }}
+                              </div>
+                              <div id="s_time" style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                              {{ set.time }}
+                          </div>
+                      </div>
+                      {% if set.first_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px">{{ set.first_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      {% if set.second_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px">{{ set.second_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px">{{ set.third_medicine }}</div>
+                      </div>
+
+                  </div>
+
+              </div>
+              <div style="margin-top: 350px; display: flex; justify-content: center">
+                  <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+              </div>
+          </div>
+          {% endfor %}
+      {% else %}
+                {% for set in second_set %}
+              <div style="width: 370px; height: 500px;border: 2px solid lightgray; background: #FAFAFA; border-radius:10px">
+                  <div style="display:block ;width: 366px; height: 50px; border-bottom: 2px solid lightgray">
+                      <div style="display: block">
+                          <div>
+                              <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                                  {{ set.time_name }}
+                              </div>
+                              <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                              {{ set.time }}
+                          </div>
+                      </div>
+                      {% if set.first_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.first_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      {% if set.second_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.second_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.third_medicine }}</div>
+                      </div>
+
+                  </div>
+
+              </div>
+              <div style="margin-top: 350px; display: flex; justify-content: center">
+                  <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+              </div>
+          </div>
+          {% endfor %}
+      {% endif %}
+          <!-- 시간2번칸 끝-->
+          <!-- 시간3번칸 시작-->
+      {% if thirdcompare == 'show' %}
+          {% for set in third_set %}
+          <div style="width: 370px; height: 500px;border: 2px solid black; background: #FAFAFA; border-radius:10px">
+              <div style="display:block ;width: 366px; height: 50px; border-bottom: 2px solid black">
+                  <div style="display: block">
+                      <div>
+                          <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                              {{ set.time_name }}
+                          </div>
+                          <div id="t_time" style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center">
+                              {{ set.time }}
+                          </div>
+                      </div>
+                      {% if set.first_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px">{{ set.first_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      {% if set.second_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px;">{{ set.second_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px;">{{ set.third_medicine }}</div>
+                      </div>
+                  </div>
+
+              </div>
+              <div style="margin-top: 350px; display: flex; justify-content: center">
+                  <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+              </div>
+          </div>
+          {% endfor %}
+      {% else %}
+                {% for set in third_set %}
+          <div style="width: 370px; height: 500px;border: 2px solid lightgray; background: #FAFAFA; border-radius:10px">
+              <div style="display:block ;width: 366px; height: 50px; border-bottom: 2px solid lightgray">
+                  <div style="display: block">
+                      <div>
+                          <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                              {{ set.time_name }}
+                          </div>
+                          <div style="padding-top: 3px; font-size: 30px; display: flex; justify-content: center; color:darkgray">
+                              {{ set.time }}
+                          </div>
+                      </div>
+                      {% if set.first_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.first_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      {% if set.second_medicine %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.second_medicine }}</div>
+                      </div>
+                      {% else %}
+                      {% endif %}
+                      <div style="display: flex; padding :15px 0; font-size:20px; width:368px; ">
+                          <div style="margin-left: 10px; color:darkgray">{{ set.third_medicine }}</div>
+                      </div>
+
+                  </div>
+
+              </div>
+              <div style="margin-top: 350px; display: flex; justify-content: center">
+                  <button type="button" class="btn btn-info" style="width:200px">바로추출</button>
+              </div>
+          </div>
+          {% endfor %}
+      {% endif %}
+          <!-- 시간3번칸 끝-->
+      </div>
+
+
+  </div>
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+<script>
+    const clockContainer = document.querySelector(".js-clock");
+    const clockTitle = clockContainer.querySelector("h1");
+
+    function getTime() {
+      const date = new Date();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+      clockTitle.innerText = `${hours < 10 ? `0${hours}` : hours}:${
+        minutes < 10 ? `0${minutes}` : minutes
+      }:${seconds < 10 ? `0${seconds}` : seconds}`;
+    }
+
+    function init() {
+      getTime();
+      setInterval(getTime, 1000);
+    }
+
+    init();
+
+
+
+
+
+</script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

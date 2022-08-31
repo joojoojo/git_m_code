@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Jquery -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- Google Icon -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+          rel="stylesheet">
+    <title>time_add</title>
+
+    <style>
+
+        .modal_overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+        }
+
+        .modal1_window {
+            background: white;
+            backdrop-filter: blur(13.5px);
+            -webkit-backdrop-filter: blur(13.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 1050px;
+            height: 700px;
+            position: relative;
+            padding: 10px;
+        }
+
+        .modal_window {
+            background: white;
+            backdrop-filter: blur(13.5px);
+            -webkit-backdrop-filter: blur(13.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 1000px;
+            height: 600px;
+            position: relative;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div style="display: flex; flex-direction: row; justify-content: space-between; width:100%; margin-top: 30px ">
+    <div style="width: 200px"></div>
+    <div style="height: 100px; width:300px; display: block; justify-content: center;  ">
+        <a href="/main" style="text-decoration-line: none; color:black">
+            <div style=" font-family: cursive; font-size: 65px; text-align: center">D . H . C</div>
+            <div style="display: flex; font-size:20px; letter-spacing: 6px; font-family: serif; justify-content: center;">
+                daily health care
+            </div>
+        </a>
+
+    </div>
+    <div style="text-align: right; display:flex; flex-direction: row;width:200px">
+          <span class="material-icons-outlined"
+                style="font-size: 70px; height: 100px; margin-top:15px; cursor: pointer "><a href="/main" style="text-decoration: none; color:blue">home</a></span>
+    </div>
+</div>
+<div>
+    <div style="display: flex; justify-content: center; margin-top: 80px">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 1000px">
+            <button id="time_add_box" type="button" class="btn btn-outline-info"
+                    style="border-radius: 1000px; width:400px; height: 400px; font-size: 50px">약 시간 설정
+            </button>
+            <button id="time_set_box" type="button" class="btn btn-outline-warning"
+                    style="border-radius: 1000px; width:400px; height: 400px; font-size: 50px">이름 & 시간 설정
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 모달창 -->
+<div id="modal_display" class="modal_overlay">
+    <div class="modal1_window" style="background: ghostwhite">
+        <!-- 상단바 -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; height: 50px; align-items: center; background: darkred; border-radius: 5px ">
+            <div style="width:70px">
+
+            </div>
+            <div style="font-size:30px; color:white">
+                시간 & 영양제
+            </div>
+            <div style="width:70px; font-size:20px; text-align: center">
+
+            </div>
+        </div>
+        <!-- 상단바 끝-->
+        <!-- 시간 설정 약1, 약2, 약3 -->
+
+        <div class=""
+             style="border: solid 2px darkgreen; width: 1030px; height: 500px; margin-top: 7px; padding:30px 0; font-size:30px; background: whitesmoke; border-radius: 5px">
+            <!-- 첫번째 줄 시작 -->
+            {% for firsttime in firsttimes %}
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <div style="display: flex; flex-direction: row; width:600px">
+                        <div style="height:100px; width:130px;margin-left:20px; font-size: 30px; border: solid 5px darkgreen; display:flex; align-items: center; justify-content: center; ">{{ firsttime.firstname }}</div>
+                        <div style="height:100px; font-size: 27px; margin-left:15px; letter-spacing: 6px; border: solid 5px darkgreen; display:flex; align-items: center; justify-content: center; padding: 5px; width:200px">{{ firsttime.firsttime }}</div>
+                    </div>
+                    <div style="display: flex; margin-left:30px;  margin-right: 20px; width:1000px; flex-direction: row-reverse; justify-content: space-between">
+                        <!-- 3번약-->
+                        {% if firsttime.third %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="third" b_id="one_third" id="1_button_press_third"
+                                    class="button_press btn btn-success">{{ firsttime.thirdmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="third" b_id="one_third" id="1_button_press_third"
+                                    class="button_press btn btn-secondary">{{ firsttime.thirdmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 3번약 끝-->
+                        <!-- 2번약-->
+                        {% if firsttime.second %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="second" b_id="one_second" id="1_button_press_second"
+                                    class="button_press btn btn-success">{{ firsttime.secondmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="second" b_id="one_second" id="1_button_press_second"
+                                    class="button_press btn btn-secondary">{{ firsttime.secondmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 2번약 끝-->
+                        <!-- 1번약-->
+                        {% if firsttime.first %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="first" b_id="one_first" id="1_button_press_first"
+                                    class="button_press btn btn-success">{{ firsttime.firstmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="1" button_id="first" b_id="one_first" id="1_button_press_first"
+                                    class="button_press btn btn-secondary">{{ firsttime.firstmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 1번약 끝-->
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- 첫번째 줄  끝 -->
+
+            <!-- 두번째 줄 시작 -->
+            {% for secondtime in secondtimes %}
+                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 60px">
+                <div style="display: flex; flex-direction: row;  width:600px">
+                    <div style="height:100px; width:130px; margin-left:20px; font-size: 30px; display:flex; border: solid 5px darkgreen;align-items: center; justify-content: center; ">{{ secondtime.secondname }}</div>
+                    <div style="height:100px;  font-size: 27px; margin-left:15px; letter-spacing: 6px; border: solid 5px darkgreen; display:flex; align-items: center; justify-content: center; padding: 5px; width:200px">{{ secondtime.secondtime }}</div>
+                </div>
+                    <div style="display: flex; margin-left:30px;  margin-right: 20px; width:1000px; flex-direction: row-reverse; justify-content: space-between">
+                        <!-- 3번약-->
+                        {% if secondtime.third %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="third" b_id="two_third" id="2_button_press_third"
+                                    class="button_press btn btn-success">{{ secondtime.thirdmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="third" b_id="two_third" id="2_button_press_third"
+                                    class="button_press btn btn-secondary">{{ secondtime.thirdmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 3번약 끝-->
+                        <!-- 2번약-->
+                        {% if secondtime.second %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="second" b_id="two_second" id="2_button_press_second"
+                                    class="button_press btn btn-success">{{ secondtime.secondmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="second" b_id="two_second" id="2_button_press_second"
+                                    class="button_press btn btn-secondary">{{ secondtime.secondmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 2번약 끝-->
+                        <!-- 1번약-->
+                        {% if secondtime.first %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="first" b_id="two_first" id="2_button_press_first"
+                                    class="button_press btn btn-success">{{ secondtime.firstmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="2" button_id="first" b_id="two_first" id="2_button_press_first"
+                                    class="button_press btn btn-secondary">{{ secondtime.firstmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 1번약 끝-->
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- 두번째 줄 끝 -->
+
+            <!-- 세번째 줄 시작 -->
+            {% for thirdtime in thirdtimes %}
+                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 60px">
+                    <div style="display: flex; flex-direction: row; width:600px">
+                        <div style="height:100px; width:130px; margin-left:20px; font-size: 30px; border: solid 5px darkgreen; display:flex; align-items: center; justify-content: center;">{{ thirdtime.thirdname }}</div>
+                        <div style="height:100px; font-size: 27px; margin-left:15px; letter-spacing: 6px; border: solid 5px darkgreen; display:flex; align-items: center; justify-content: center; padding: 5px;width:200px">{{ thirdtime.thirdtime }}</div>
+                    </div>
+                    <div style="display: flex; margin-left:30px; margin-right: 20px; width:1000px; flex-direction: row-reverse; justify-content: space-between">
+                        <!-- 3번약-->
+                        {% if thirdtime.third %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="third" b_id="three_third" id="3_button_press_third"
+                                    class="button_press btn btn-success">{{ thirdtime.thirdmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="third" b_id="three_third" id="3_button_press_third"
+                                    class="button_press btn btn-secondary">{{ thirdtime.thirdmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 3번약 끝-->
+                        <!-- 2번약-->
+                        {% if thirdtime.second %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="second" b_id="three_second" id="3_button_press_second"
+                                    class="button_press btn btn-success">{{ thirdtime.secondmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="second" b_id="three_second" id="3_button_press_second"
+                                    class="button_press btn btn-secondary">{{ thirdtime.secondmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 2번약 끝-->
+                        <!-- 1번약-->
+                        {% if thirdtime.first %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="first" b_id="three_first" id="3_button_press_first"
+                                    class="button_press btn btn-success">{{ thirdtime.firstmedicine }}
+                            </button>
+                        {% else %}
+                            <button style="height:100px; width:180px; font-size: 30px; box-shadow: none; color:white " type="button"
+                                    time_id="3" button_id="first" b_id="three_first" id="3_button_press_first"
+                                    class="button_press btn btn-secondary">{{ thirdtime.firstmedicine }}
+                            </button>
+                        {% endif %}
+                        <!-- 1번약 끝-->
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- 세번째 줄 끝-->
+        </div>
+        <!-- 시간 설정 약1, 약2, 약3 끝-->
+        <div style="display: flex; justify-content: center; width:100%">
+            <div style="display: flex; flex-direction: row; justify-content: center; margin-top: 30px">
+                <a style="text-decoration-line: none; color:black;" href="/add"><button href="/add" type="button" class="btn btn-light" style=" font-size: 35px; width:400px;border-radius: 10px; border:solid 3px darkgreen" >저장하기</button></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 2번 모달창 -->
+<div id="second_modal_display" class="modal_overlay">
+    <div class="modal_window" style="background: ghostwhite">
+        <!-- 상단바 -->
+        <div style="display: flex; flex-direction: row; justify-content: space-between; height: 50px; align-items: center; background: darkred; border-radius: 5px; ">
+            <div style="width:70px">
+
+            </div>
+            <div style="font-size:30px; color:white">
+                이름 & 시간 설정
+            </div>
+            <div style="width:70px; font-size:20px; text-align: center">
+
+            </div>
+        </div>
+        <!-- 상단바 끝-->
+        <!-- 시간 설정 약1, 약2, 약3 -->
+
+        <div class=""
+             style="border: solid 5px darkgreen; width: 980px; height: 400px; margin-top: 7px; padding:30px 0; font-size:30px; background: whitesmoke; border-radius: 5px">
+            <div style="display: flex; margin-left: 10px; flex-direction: row;">
+                <div style="border: solid 3px darkgreen; width:520px; height:320px">
+                    <!-- 약1 설정 -->
+                    {% for first in firsttimes %}
+                        <div style=" margin-left: 20px; margin-top: 8px">
+                            <div style="font-size: 20px; color:gray">
+                                시간 1
+                            </div>
+                            <div style="display: flex; flex-direction: row">
+                                <div>
+                                    <input style="width:270px; border: solid 2px darkgreen; border-radius: 5px" id="first_t_name" maxlength="8" type="text" value="{{ first.firstname }}">
+                                </div>
+                                <div>
+                                    <input style="border: solid 2px darkgreen; border-radius: 5px" id="first_time"type="time" value="{{ first.firsttime }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    {% endfor %}
+                    <!-- 약2 설정 -->
+                    {% for second in secondtimes %}
+                        <div style="margin-top: 20px; margin-left: 20px">
+                            <div style="font-size: 20px; color:gray">
+                                시간2
+                            </div>
+                            <div style="display: flex; flex-direction: row">
+                                <div>
+                                    <input style="width:270px; border: solid 2px darkgreen; border-radius: 5px"  id="second_t_name" maxlength="8" type="text" value="{{ second.secondname }}">
+                                </div>
+                                <div>
+                                    <input style="border: solid 2px darkgreen; border-radius: 5px"  id="second_time" type="time" value="{{ second.secondtime }}">
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                    <!-- 약3 설정 -->
+                    {% for third in thirdtimes %}
+                        <div style="margin-top: 20px; margin-left: 20px">
+                            <div style="font-size: 20px; color:gray">
+                                시간3
+                            </div>
+                            <div style="display: flex; flex-direction: row">
+                                <div>
+                                    <input style="width:270px; border: solid 2px darkgreen; border-radius: 5px"  id="third_t_name" maxlength="8" type="text" value="{{ third.thirdname }}">
+                                </div>
+                                <div>
+                                    <input style="border: solid 2px darkgreen; border-radius: 5px"  id="third_time" type="time" value="{{ third.thirdtime }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
+
+                </div>
+                <!-- 약 이름 설정 -->
+                <div style="margin-left: 30px; border: solid 3px darkgreen; width:400px; height:320px">
+                    {% for first in firsttimes %}
+                        <div style="display: flex; flex-direction: row; margin-top: 30px; margin-left: 20px">
+                            <div style="font-size: 27px; color:gray">
+                                약1
+                            </div>
+                            <div>
+                                <input style="margin-left: 10px" id="first_name" maxlength="10" type="text" value="{{ first.firstmedicine }}">
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                    {% for second in secondtimes %}
+                        <div style="display: flex; flex-direction: row; margin-top: 50px; margin-left: 20px">
+                            <div style="font-size: 27px; color:gray">
+                                약2
+                            </div>
+                            <div>
+                                <input style="margin-left: 10px" id="second_name" maxlength="10" type="text" value="{{ second.secondmedicine }}">
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                    {% for third in thirdtimes %}
+                        <div style="display: flex; flex-direction: row; margin-top: 50px; margin-left: 20px">
+                            <div style="font-size: 27px; color:gray">
+                                약3
+                            </div>
+                            <div>
+                                <input style="margin-left: 10px" id="third_name" maxlength="10" type="text" value="{{ third.thirdmedicine }}">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+        <!-- 시간 설정 약1, 약2, 약3 끝-->
+        <div style="display: flex; justify-content: center">
+            <div style="display: flex; flex-direction: row; justify-content: center; width: 100%; margin-top: 30px">
+                <a style="text-decoration-line: none; color:black;">
+                    <button id="timesave" type="button" class="btn btn-light"
+                            style=" font-size: 35px; width:400px;border-radius: 10px; border:solid 3px darkgreen">저장하기
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<script>
+    $('#time_add_box').click(function () {
+        $('#modal_display').css({
+            display: 'flex',
+            top: window.pageYOffset + 'px'
+        })
+
+        $(document.body).css({
+            overflow: 'hidden'
+        })
+    })
+
+    $('#time_set_box').click(function () {
+        $('#second_modal_display').css({
+            display: 'flex',
+            top: window.pageYOffset + 'px'
+        })
+
+        $(document.body).css({
+            overflow: 'hidden'
+        })
+    })
+
+    $('.button_press').click(function (e) {
+        let time_id = e.target.attributes.getNamedItem('time_id').value;
+        console.log(time_id);
+        let button_id = e.target.attributes.getNamedItem('button_id').value;
+        let b_id = e.target.attributes.getNamedItem('b_id').value;
+
+        console.log(button_id);
+        let button_class_text = $('#' + time_id + '_button_press_' + button_id).attr('class');
+        let [a, b, button_text] = button_class_text.split(' ');
+        console.log(button_text);
+
+
+        if (button_text == 'btn-success') {
+            $('#' + time_id + '_button_press_' + button_id).removeClass("button_press btn btn-success");
+
+            $('#' + time_id + '_button_press_' + button_id).addClass("button_press btn btn-secondary");
+
+
+        } else {
+            $('#' + time_id + '_button_press_' + button_id).removeClass("button_press btn btn-secondary");
+            $('#' + time_id + '_button_press_' + button_id).addClass("button_press btn btn-success");
+            $('#' + time_id + '_button_press_' + button_id).off('hover');
+        }
+
+        $.ajax({
+            url: "/content/upload",
+            data: {
+                button_text: button_text,
+                button_id: button_id,
+                time_id: time_id,
+                b_id : b_id
+            },
+
+            method: "POST",
+            success: function (data) {
+                console.log("성공");
+
+
+            },
+            error: function (request, status, error) {
+                console.log("에러");
+            },
+            complete: function () {
+                console.log("완료");
+            }
+        });
+
+
+    })
+
+    $('#timesave').click(function () {
+        let first_name = $('#first_name').val();
+        let second_name = $('#second_name').val();
+        let third_name = $('#third_name').val();
+        console.log(first_name)
+
+        let first_time = $('#first_time').val();
+        console.log(first_time)
+        let second_time = $('#second_time').val();
+        let third_time = $('#third_time').val();
+
+        let first_t_name = $('#first_t_name').val();
+        let second_t_name = $('#second_t_name').val();
+        let third_t_name = $('#third_t_name').val();
+
+
+        $.ajax({
+            url: "/content/medicine",
+            data: {
+                first_name : first_name,
+                second_name : second_name,
+                third_name : third_name,
+                first_time : first_time,
+                second_time : second_time,
+                third_time : third_time,
+                first_t_name : first_t_name,
+                second_t_name : second_t_name,
+                third_t_name : third_t_name,
+            },
+
+            method: "POST",
+            success: function (data) {
+                location.replace("/add");
+                console.log("성공");
+
+
+            },
+            error: function (request, status, error) {
+                console.log("에러");
+            },
+            complete: function () {
+                console.log("완료");
+            }
+        });
+
+
+    })
+</script>
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

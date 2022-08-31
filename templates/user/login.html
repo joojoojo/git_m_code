@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Jquery -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <title>instagram/join</title>
+</head>
+<body style="background: #FAFAFA">
+<div style="text-align: center; display:flex; justify-content: center">
+    <div style="border: solid 1px lightgray; width: 800px; height: 600px; margin-top: 40px; background: white">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width:100%; margin-top: 30px ">
+            <div style="width: 200px"></div>
+            <div style="height: 100px; width:300px; display: block; justify-content: center;  ">
+                <div style=" font-family: cursive; font-size: 65px; text-align: center">D . H . C</div>
+                <div style="display: flex; font-size:20px; letter-spacing: 6px; font-family: serif; justify-content: center;">
+                    daily health care
+                </div>
+            </div>
+            <div style="text-align: right; display:flex; flex-direction: row;width:200px">
+           </div>
+        </div>
+        <div style="text-align: center; display:flex; justify-content: center; margin-top:40px"><a
+                style="font-size: 19px; color: gray; width:280px; margin-top: 20px">로그인</a></div>
+
+        <div class="form-floating mb-3" style="text-align: center; display:flex; justify-content: center;">
+            <input style="width:280px; height: 40px; background: #FAFAFA; margin-top:10px; "
+                   type="email" name="input_email"
+                   class="username_input form-control" id="input_email" check_result="fail"
+                   placeholder="name@example.com" required/>
+            <label style="width:230px; font-size: 14px; padding: 18px; color:gray; text-align: left; margin-left: 250px "
+                   for="input_email">이메일 주소</label>
+        </div>
+
+        <div class="form-floating mb-3" style="text-align: center; display:flex; justify-content: center">
+            <input style="width:280px; height: 40px; background: #FAFAFA; " type="password" class="form-control"
+                   id="input_password" placeholder="name@example.com" required/>
+            <label style="width:230px; font-size: 14px; color:gray; padding: 8px; text-align: left; margin-left: 260px "
+                   for="input_password">비밀번호</label>
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="button" id="login_button"  style="margin-top: 20px; width:280px">로그인</button>
+    </div>
+</div>
+<div style="text-align: center; display:flex; justify-content: center">
+    <div style="border: solid 1px lightgray; width: 400px; height: 80px; margin-top: 10px; background: white">
+        <div style="margin-top: 26px; font-size: 15px">
+            계정이 없으신가요? <a href="http://127.0.0.1:8000/user/join" style="text-decoration: none; color:#0095F6">회원가입</a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#login_button').click(function (){
+
+        let email = $('#input_email').val();
+        console.log(email)
+        let password = $('#input_password').val();
+
+
+
+        $.ajax({
+            url:"/user/login",
+            data: {
+                email : email,
+                password : password
+
+            },
+            method:"POST",
+            success : function (data){
+                console.log("성공");
+                alert("로그인 되었습니다")
+                location.replace("/main");
+            },
+            error : function(request, status, error){
+                alert("로그인 정보가 일치하지 않습니다")
+                console.log("error");
+            },
+            complete : function (){
+                console.log("완료");
+
+            }
+
+        })
+
+
+    });
+</script>
+
+<!-- ptional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
